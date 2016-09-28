@@ -15,7 +15,7 @@ import static javax.swing.SwingConstants.CENTER;
 public class AppFrame extends JFrame implements ActionListener {
     
     public static JLabel jlab;
-    public static JTextArea mainText;
+    public static JEditorPane mainText;
     
     public AppFrame(){
         // Specify Layout
@@ -28,13 +28,10 @@ public class AppFrame extends JFrame implements ActionListener {
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Create Text Area in scroll pane w/ line number
-        mainText = new JTextArea();
-        mainText.setWrapStyleWord(true);
-        mainText.setLineWrap(true);
+        mainText = new JEditorPane();
         JScrollPane mainPane = new JScrollPane(mainText);
         TextLineNumber tln = new TextLineNumber(mainText);
         mainPane.setRowHeaderView(tln);
-        
         
         // Create display label
         jlab = new JLabel("");

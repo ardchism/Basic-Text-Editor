@@ -6,6 +6,8 @@
 
 package adam.s_code_editor;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
@@ -34,16 +36,16 @@ public class TopMenu extends JMenuBar implements ActionListener{
             
             // Create background color menu
             JMenu backgroundMenu = new JMenu("Background Color");
-            JMenuItem blackBack = new JMenuItem("Black");
-            JMenuItem whiteBack = new JMenuItem("White");
+            JMenuItem blackBack = new JMenuItem("Black Background");
+            JMenuItem whiteBack = new JMenuItem("White Background");
             backgroundMenu.add(blackBack);
             backgroundMenu.add(whiteBack);
             styleMenu.add(backgroundMenu);
             
             // Create Text Color Menu.
             JMenu textColorMenu = new JMenu("Text Color");
-            JMenuItem greenFont = new JMenuItem("Green");
-            JMenuItem blackFont = new JMenuItem("Black");
+            JMenuItem greenFont = new JMenuItem("Green Font");
+            JMenuItem blackFont = new JMenuItem("Black Font");
             textColorMenu.add(greenFont);
             textColorMenu.add(blackFont);
             styleMenu.add(textColorMenu);
@@ -94,12 +96,45 @@ public class TopMenu extends JMenuBar implements ActionListener{
         // Get the action command from the menu selection.
         String comStr = ae.getActionCommand();
         
-        // If tuser chooses Exit, then exit the program.
-        if(comStr.equals("Exit"))
-            System.exit(0);
+            // Logic for the menu actions. I will prob move these to dif class.
+            // Change font size using a custom font class.
+            if(comStr.matches(".*\\d+.*")){
+                // get current font
+                Font f = AppFrame.mainText.getFont();
+                // create smaller font
+                Font newFont = new Font(f.getFontName(), f.getStyle(), Integer.parseInt(comStr));
+                // assign font to text area
+                AppFrame.mainText.setFont(newFont);
+            }
+            // Change Backgound Color.
+            // Change background color to black
+            else
+                switch (comStr) {
+                    case "Black Background":
+                        AppFrame.mainText.setBackground(Color.BLACK);
+                        break;
+                    // Change Background color white    
+                    case "White Background":
+                        AppFrame.mainText.setBackground(Color.WHITE);
+                        break;
+
+                    // Change Font Color
+                    // to green  
+                    case "Green Font":
+                        AppFrame.mainText.setForeground(Color.GREEN);
+                        AppFrame.mainText.setCaretColor(Color.WHITE);
+                        break;
+                    case "Black Font":
+                        AppFrame.mainText.setForeground(Color.BLACK);
+                        break;
+
+                    // Otherwise, display the selection.
+                    default:
+                        AppFrame.jlab.setText("COMING SOON");
+                        break;
+                }
         
-        // Otherwise, display the selection.
-        AppFrame.jlab.setText(comStr + " Selected");
+        
     }
     
 
