@@ -27,10 +27,14 @@ public class AppFrame extends JFrame implements ActionListener {
         // Close program on user exit
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // Create Text Area
+        // Create Text Area in scroll pane w/ line number
         mainText = new JTextArea();
         mainText.setWrapStyleWord(true);
         mainText.setLineWrap(true);
+        JScrollPane mainPane = new JScrollPane(mainText);
+        TextLineNumber tln = new TextLineNumber(mainText);
+        mainPane.setRowHeaderView(tln);
+        
         
         // Create display label
         jlab = new JLabel("");
@@ -41,7 +45,7 @@ public class AppFrame extends JFrame implements ActionListener {
         
         // Add to frame
         super.add(myMenu, BorderLayout.PAGE_START);
-        super.add(mainText, BorderLayout.CENTER);
+        super.add(mainPane, BorderLayout.CENTER);
         super.add(jlab, BorderLayout.PAGE_END);
         super.setVisible(true);
     }

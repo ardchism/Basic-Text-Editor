@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import static javax.swing.SwingConstants.CENTER;
 
 
 public class TopMenu extends JMenuBar implements ActionListener{
@@ -29,41 +28,51 @@ public class TopMenu extends JMenuBar implements ActionListener{
             fileMenu.add(saveOpt);
             fileMenu.addSeparator();
             fileMenu.add(exitOpt);
-            super.add(fileMenu);
 
-            // Create the options menu.
-            JMenu optionsMenu = new JMenu("Options");
+            // Create Style menu
+            JMenu styleMenu = new JMenu("Style");
+            
+            // Create background color menu
+            JMenu backgroundMenu = new JMenu("Background Color");
+            JMenuItem blackBack = new JMenuItem("Black");
+            JMenuItem whiteBack = new JMenuItem("White");
+            backgroundMenu.add(blackBack);
+            backgroundMenu.add(whiteBack);
+            styleMenu.add(backgroundMenu);
+            
+            // Create Text Color Menu.
+            JMenu textColorMenu = new JMenu("Text Color");
+            JMenuItem greenFont = new JMenuItem("Green");
+            JMenuItem blackFont = new JMenuItem("Black");
+            textColorMenu.add(greenFont);
+            textColorMenu.add(blackFont);
+            styleMenu.add(textColorMenu);
+            
+            // Create Font Size menu.
+            JMenu textSizeMenu = new JMenu("Text Size");
+            JMenuItem fontSizeList[] = new JMenuItem[26];
+            for(int count = 0, font = 2; count < 25; count++, font += 2){
+                fontSizeList[count] = new JMenuItem( Integer.toString(font) );
+                textSizeMenu.add(fontSizeList[count]);
+                fontSizeList[count].addActionListener(this);
+            }
+            styleMenu.add(textSizeMenu);
 
-            // Create color sub menu
-            JMenu colorMenu = new JMenu("Color");
-            JMenuItem jmiRed = new JMenuItem("Red");
-            JMenuItem jmiGreen = new JMenuItem("Green");
-            JMenuItem jmiBlue = new JMenuItem("Blue");
-            colorMenu.add(jmiRed);
-            colorMenu.add(jmiGreen);
-            colorMenu.add(jmiBlue);
-            optionsMenu.add(colorMenu);
-
-            // Create the priorty sub menu.
-            JMenu priortyMenu = new JMenu("Priority");
-            JMenuItem jmiHigh = new JMenuItem("High");
-            JMenuItem jmiLow = new JMenuItem("Low");
-            priortyMenu.add(jmiHigh);
-            priortyMenu.add(jmiLow);
-            optionsMenu.add(priortyMenu);
-
-            // Create the reset menu
-            JMenuItem resetMenu = new JMenuItem("Reset");
-            optionsMenu.addSeparator();
-            optionsMenu.add(resetMenu);
-
-            // Add options menu to the menu bar.
-            super.add(optionsMenu);
+            
+            // Create theme menu.
+            JMenu themeMenu = new JMenu("Theme");
+            JMenuItem themOne = new JMenuItem("Theme 1");
+            themeMenu.add(themOne);
+            styleMenu.add(themeMenu);
 
             // Create help menu.
             JMenu helpMenu = new JMenu("Help");
             JMenuItem aboutItem = new JMenuItem("About");
             helpMenu.add(aboutItem);
+            
+            // Add menus to main menu
+            super.add(fileMenu);
+            super.add(styleMenu);
             super.add(helpMenu);
             
             // Add action listeners.
@@ -71,12 +80,11 @@ public class TopMenu extends JMenuBar implements ActionListener{
             closeOpt.addActionListener(this);
             saveOpt.addActionListener(this);
             exitOpt.addActionListener(this);
-            jmiRed.addActionListener(this);
-            jmiGreen.addActionListener(this);
-            jmiBlue.addActionListener(this);
-            jmiHigh.addActionListener(this);
-            jmiLow.addActionListener(this);
-            resetMenu.addActionListener(this);
+            blackBack.addActionListener(this);
+            whiteBack.addActionListener(this);
+            greenFont.addActionListener(this);
+            blackFont.addActionListener(this);
+            themOne.addActionListener(this);
             aboutItem.addActionListener(this);
 
         }
