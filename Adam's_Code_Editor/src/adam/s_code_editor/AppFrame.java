@@ -14,10 +14,14 @@ import static javax.swing.SwingConstants.CENTER;
 
 public class AppFrame extends JFrame implements ActionListener {
     
-    public static JLabel jlab;
-    public static JEditorPane mainText;
+    private static JLabel jlab;
+    private static JEditorPane mainText;
+    private static TextLineNumber lineNumber;
     
-    public AppFrame(){
+    public AppFrame(String name){
+        
+        super(name);
+
         // Specify Layout
         super.setLayout(new BorderLayout());
         
@@ -30,15 +34,15 @@ public class AppFrame extends JFrame implements ActionListener {
         // Create Text Area in scroll pane w/ line number
         mainText = new JEditorPane();
         JScrollPane mainPane = new JScrollPane(mainText);
-        TextLineNumber tln = new TextLineNumber(mainText);
-        mainPane.setRowHeaderView(tln);
+        lineNumber = new TextLineNumber(mainText);
+        mainPane.setRowHeaderView(lineNumber);
         
         // Create display label
         jlab = new JLabel("");
         jlab.setHorizontalAlignment(CENTER);
         
         // Call TopMenu
-        TopMenu myMenu = new TopMenu();
+        TopMenu myMenu = new TopMenu(jlab, mainText, lineNumber);
         
         // Add to frame
         super.add(myMenu, BorderLayout.PAGE_START);

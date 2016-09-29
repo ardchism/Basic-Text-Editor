@@ -15,9 +15,19 @@ import javax.swing.*;
 
 public class FileMenu extends JMenu implements ActionListener{
     
+    // private refs for passing need objects
+    private final JLabel jlab;
+    private final JEditorPane mainText;
+    private final TextLineNumber lineNumber;
+    
     // Constructor that is used to create an instance of this menu
-    public FileMenu(String name){
+    public FileMenu(String name, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
         super(name); // Calls parent constructor to set text
+        
+        // Store ref of vars for updating
+        this.jlab = jlab;
+        this.mainText = mainText;
+        this.lineNumber = lineNumber;
         
         // Create file options
         JMenuItem openOpt = new JMenuItem("Open");
@@ -49,7 +59,7 @@ public class FileMenu extends JMenu implements ActionListener{
             case "Close":
             case "Save":
             case "Exit":
-                AppFrame.jlab.setText(comStr);
+                jlab.setText(comStr);
         }
         
         

@@ -10,17 +10,29 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 
 public class StyleMenu extends JMenu implements ActionListener{
     
+    // private refs for passing need objects
+    private final JLabel jlab;
+    private final JEditorPane mainText;
+    private final TextLineNumber lineNumber;
+    
     // Constructor that will be used to create the instance of this menu
-    public StyleMenu(String name){
+    public StyleMenu(String name, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
     
         // Call super inorder to set text
         super(name);
+        
+        // Store ref of vars for updating
+        this.jlab = jlab;
+        this.mainText = mainText;
+        this.lineNumber = lineNumber;
         
         // Create background color menu
         JMenu backgroundMenu = new JMenu("Background Color");
@@ -67,7 +79,7 @@ public class StyleMenu extends JMenu implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         
-        StyleMenuLogic myLogic = new StyleMenuLogic(ae);
+        StyleMenuLogic myLogic = new StyleMenuLogic(ae, jlab, mainText, lineNumber);
         myLogic.runLogic();
         
     }

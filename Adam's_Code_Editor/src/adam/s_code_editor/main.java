@@ -6,9 +6,8 @@ package adam.s_code_editor;
  */
 public class main {
 
-    
     public static void main(String[] args) {
-        new AppFrame();
+        AppFrame appFrame = new AppFrame("Adam's Text Editor");
     }
     
 }
