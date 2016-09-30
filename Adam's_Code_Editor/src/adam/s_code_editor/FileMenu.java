@@ -19,6 +19,8 @@ public class FileMenu extends JMenu implements ActionListener{
     private final JLabel jlab;
     private final JEditorPane mainText;
     private final TextLineNumber lineNumber;
+    private String fileName = "New File";
+    private String currentText = "";
     
     // Constructor that is used to create an instance of this menu
     public FileMenu(String name, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
@@ -51,8 +53,10 @@ public class FileMenu extends JMenu implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae){
-        FileMenuLogic myLogic = new FileMenuLogic(ae, jlab, mainText, lineNumber);
-        myLogic.runLogic();
+        FileMenuLogic myLogic = new FileMenuLogic(ae, jlab, mainText, lineNumber, currentText);
+        // store file name and body of text for future use.
+        fileName = myLogic.runLogic(fileName);
+        currentText = mainText.getText();
     }
     
 }

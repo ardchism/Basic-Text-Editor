@@ -8,6 +8,7 @@ package adam.s_code_editor;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -42,18 +43,48 @@ public class myFileChooser extends JFileChooser {
             String fname = myFile.getPath();
             
             // Load the file
-        try {
-            myReader = new FileReader(fname);
-            mainText.read(myReader, null);
-            myReader.close();
-        } catch(IOException exc){
-            jlab.setText("Error reading the file");
-        }
+            try {
+                myReader = new FileReader(fname);
+                mainText.read(myReader, null);
+                myReader.close();
+            } 
+            catch(IOException exc){
+                jlab.setText("Error reading the file");
+            }
+            
         }
         else{
             jlab.setText("User Canceled Open");
-        }
+        }  
+    }
+    
+    public void saveFile(){
+        
+        int returnVal = this.showSaveDialog(mainText);
+        
+        // If user approves menu then open file
+        // Else update jlab with user canceled message
+        if (returnVal == JFileChooser.APPROVE_OPTION){
+            myFile = this.getSelectedFile();
+            // Open file writer.
+            FileWriter myWriter;
+        
+            // Get filename
+            String fname = myFile.getPath();
             
+            // Save file
+            try {
+                myWriter = new FileWriter(fname);
+                mainText.write(myWriter);
+                myWriter.close();
+            } catch(IOException exc){
+                jlab.setText("Error opening or writing file");
+            }
+            
+        }
+        else{
+            jlab.setText("User Canceled Save");
+        }
         
     }
     
