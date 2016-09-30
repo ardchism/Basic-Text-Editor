@@ -12,12 +12,13 @@ import javax.swing.*;
 
 public class FileMenuLogic {
 
-    private ActionEvent myEvent;
+    private final ActionEvent myEvent;
     
     // private refs for passing need objects
     private final JLabel jlab;
     private final JEditorPane mainText;
     private final TextLineNumber lineNumber;
+    private myFileChooser myfc;
     
     public FileMenuLogic(ActionEvent ae,
                          JLabel jlab,
@@ -38,10 +39,22 @@ public class FileMenuLogic {
         
         switch (comStr) {
             case "Open":
+                
+                myfc = new myFileChooser(mainText, jlab);
+                myfc.openFile();
+                jlab.setText(myfc.getFileName());
+                break;
+                
             case "Close":
+                
+                
+                
             case "Save":
-            case "Exit":
                 jlab.setText(comStr);
+                break;
+            case "Exit":
+                System.exit(0);
+                
         }
         
     }
