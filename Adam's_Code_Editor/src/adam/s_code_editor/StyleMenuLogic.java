@@ -47,6 +47,7 @@ public class StyleMenuLogic {
             Font newFont = new Font(f.getFontName(), f.getStyle(), Integer.parseInt(comStr));
             // assign font to text area
             mainText.setFont(newFont);
+            lineNumber.setFont(newFont);
         }
         // Change Backgound Color and font color logic.
         else

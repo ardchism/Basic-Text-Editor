@@ -37,21 +37,13 @@ public class HelpMenu extends JMenu implements ActionListener {
         
         // Add action listeners.
         aboutItem.addActionListener(this);
-        
+  
     }
     
     @Override
     public void actionPerformed(ActionEvent ae){
-        // Get the action command from the menu selection.
-        String comStr = ae.getActionCommand();
-        
-        switch (comStr) {
-            case "About":
-               jlab.setText(comStr);
-               break;      
-        }
-        
-        
+        HelpMenuLogic myLogic = new HelpMenuLogic(ae, jlab, mainText, lineNumber);
+        myLogic.runLogic();
     } 
     
 }

@@ -35,6 +35,7 @@ public class AppFrame extends JFrame implements ActionListener {
         mainText = new JEditorPane();
         JScrollPane mainPane = new JScrollPane(mainText);
         lineNumber = new TextLineNumber(mainText);
+        lineNumber.setMinimumDisplayDigits(4);
         mainPane.setRowHeaderView(lineNumber);
         
         // Create display label

@@ -51,18 +51,8 @@ public class FileMenu extends JMenu implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae){
-        // Get the action command from the menu selection.
-        String comStr = ae.getActionCommand();
-        
-        switch (comStr) {
-            case "Open":
-            case "Close":
-            case "Save":
-            case "Exit":
-                jlab.setText(comStr);
-        }
-        
-        
+        FileMenuLogic myLogic = new FileMenuLogic(ae, jlab, mainText, lineNumber);
+        myLogic.runLogic();
     }
     
 }
