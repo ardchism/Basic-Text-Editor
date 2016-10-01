@@ -6,8 +6,6 @@
 
 package adam.s_code_editor;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -15,27 +13,34 @@ import javax.swing.*;
 
 public class FileMenu extends JMenu implements ActionListener{
     
-    // private refs for passing need objects
-    private final JLabel jlab;
-    private final JEditorPane mainText;
-    private final TextLineNumber lineNumber;
-    private String fileName = "New File";
-    private String currentText = "";
+    // Parent frame for getting parent objects 
+    private final AppFrame myAppFrame;
     
-    // Constructor that is used to create an instance of this menu
-    public FileMenu(String name, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
+    // private objects
+    private String fileName = "New File";
+    private String originalText = "";
+    private final JFileChooser myfc;
+    private final JOptionPane mySaveMenu;
+    private final JDialog myDialog;
+    
+    // Constructor that is used to create intitial instance of this menu
+    public FileMenu(String name, AppFrame myAppFrame){
+        
         super(name); // Calls parent constructor to set text
         
         // Store ref of vars for updating
-        this.jlab = jlab;
-        this.mainText = mainText;
-        this.lineNumber = lineNumber;
+        this.myAppFrame = myAppFrame;
         
         // Create file options
         JMenuItem openOpt = new JMenuItem("Open");
         JMenuItem closeOpt = new JMenuItem("Close");
         JMenuItem saveOpt = new JMenuItem("Save");
         JMenuItem exitOpt = new JMenuItem("Exit");
+        
+        // Create menu options for logic use
+        myfc = new JFileChooser();
+        mySaveMenu = new JOptionPane("Save Changes", JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION);
+        myDialog = mySaveMenu.createDialog(myAppFrame, "Save Changes");
         
         // Add action listeners.
         openOpt.addActionListener(this);
@@ -51,12 +56,43 @@ public class FileMenu extends JMenu implements ActionListener{
         super.add(exitOpt);
     }
     
+    public String getFileName(){
+        return fileName;
+    }
+    
+    public void setFileName(String newName){
+        fileName= newName;
+    }
+    
+    public String getOriginalText(){
+        return originalText;
+    }
+    
+    public void setOriginalText(String newText){
+        originalText = newText;
+    }
+    
+    public JFileChooser getFileChooser(){
+        return myfc;
+    }
+    
+    public JOptionPane getOptionPane(){
+        return mySaveMenu;
+    }
+    
+    public JDialog getDialogMessage(){
+        return myDialog;
+    }
+    
+    public AppFrame getAppFrame(){
+        return myAppFrame;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae){
-        FileMenuLogic myLogic = new FileMenuLogic(ae, jlab, mainText, lineNumber, currentText);
+        FileMenuLogic myLogic = new FileMenuLogic(ae, this, myAppFrame);
         // store file name and body of text for future use.
-        fileName = myLogic.runLogic(fileName);
-        currentText = mainText.getText();
+        myLogic.runLogic();
     }
     
 }

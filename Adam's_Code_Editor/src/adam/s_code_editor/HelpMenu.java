@@ -17,18 +17,14 @@ import javax.swing.JMenuItem;
 public class HelpMenu extends JMenu implements ActionListener {
     
     // private refs for passing need objects
-    private final JLabel jlab;
-    private final JEditorPane mainText;
-    private final TextLineNumber lineNumber;
+    private final AppFrame myAppFrame;
     
-    public HelpMenu(String name, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
+    public HelpMenu(String name, AppFrame myAppFrame){
         
         super(name);
         
         // Store ref of vars for updating
-        this.jlab = jlab;
-        this.mainText = mainText;
-        this.lineNumber = lineNumber;
+        this.myAppFrame = myAppFrame;
         
         // Create help menu.
         JMenu helpMenu = new JMenu("Help");
@@ -42,7 +38,7 @@ public class HelpMenu extends JMenu implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent ae){
-        HelpMenuLogic myLogic = new HelpMenuLogic(ae, jlab, mainText, lineNumber);
+        HelpMenuLogic myLogic = new HelpMenuLogic(ae, myAppFrame);
         myLogic.runLogic();
     } 
     

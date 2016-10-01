@@ -7,8 +7,6 @@
 package adam.s_code_editor;
 
 import java.awt.event.*;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.*;
 
 
@@ -17,71 +15,79 @@ public class FileMenuLogic {
     private final ActionEvent myEvent;
     
     // private refs for passing need objects
-    private final JLabel jlab;
-    private final JEditorPane mainText;
-    private final TextLineNumber lineNumber;
-    private String originalText, currentText;
-    private final myFileChooser myfc;
+    private final AppFrame myAppFrame;
+    private final FileMenu myFileMenu;
+    private final FileHandelerLogic myFileLogic;
     
-    public FileMenuLogic(ActionEvent ae,
-                         JLabel jlab,
-                         JEditorPane mainText,
-                         TextLineNumber lineNumber,
-                         String fileText){
+    private String currentText = "", fileName;
+    
+    
+    public FileMenuLogic(ActionEvent ae, FileMenu myFileMenu, AppFrame myAppFrame){
         myEvent = ae;
         
         // Store ref of vars for updating
-        this.jlab = jlab;
-        this.mainText = mainText;
-        this.lineNumber = lineNumber;
+        this.myAppFrame = myAppFrame;
+        this.myFileMenu = myFileMenu;
         
         // Store opening Text
-        originalText = fileText;
+        fileName = myFileMenu.getFileName();
         
-        // Create FileChooser
-        myfc = new myFileChooser(mainText, jlab);
+        // Create fileLogic object
+        myFileLogic = new FileHandelerLogic(myFileMenu, myAppFrame);
+        
+        
     }
     
-    public String runLogic(String fileName){
-    
+    public void runLogic(){
+        
+        fileName = myFileMenu.getFileName();
         // Get the action command from the menu selection.
         String comStr = myEvent.getActionCommand();
         
         switch (comStr) {
-            case "Open":
-                
-                myfc.openFile();
-                fileName = myfc.getFileName();
-                jlab.setText(fileName);
-                originalText = mainText.getText();
+            case "Open":              
+                myFileLogic.openFile();
+                fileName = myFileLogic.getFileName();
+                myAppFrame.getJLab().setText(fileName);
+                myFileMenu.setOriginalText(myAppFrame.getMainText().getText());
                 break;
                 
-            case "Close":
-                
-                currentText = mainText.getText();
-                if(!originalText.equals(currentText))
-                    jlab.setText("Changes have been made to: " + fileName);
-                else{
-                    mainText.setText("");
-                    jlab.setText("New File");
-                }
+            case "Close":               
+                this.saveAnyChanges();
+                myAppFrame.getMainText().setText("");
+                fileName = "New File";
+                myAppFrame.getJLab().setText("New File");
                 break;
                 
             case "Save":
-  
-                myfc.saveFile();
-                fileName = myfc.getFileName();
-                jlab.setText("Saved: " + fileName);
-                originalText = mainText.getText();
+                myFileLogic.saveFile();
+                fileName = myFileLogic.getFileName();
+                myAppFrame.getJLab().setText("Saved: " + fileName);
+                myFileMenu.setOriginalText(myAppFrame.getMainText().getText());
                 break;
                 
             case "Exit":
+                this.saveAnyChanges();
                 System.exit(0);
                 
         }
         
-        return fileName;
+        myFileMenu.setFileName(fileName);
         
+    }
+    
+    private void saveAnyChanges(){
+        currentText = myAppFrame.getMainText().getText();
+        if(!myFileMenu.getOriginalText().equals(currentText)){
+            myAppFrame.getJLab().setText("Changes have been made to: " + fileName);
+            myFileMenu.getDialogMessage().setVisible(true);
+            Object userChoice = myFileMenu.getOptionPane().getValue();
+            if(userChoice.toString().equals("0")){
+                myFileLogic.saveFile();
+                fileName = myFileLogic.getFileName();
+                myAppFrame.getJLab().setText("Saved: " + fileName);
+            }
+        }
     }
     
     

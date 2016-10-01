@@ -12,15 +12,16 @@ import javax.swing.*;
 public class TopMenu extends JMenuBar {
 
         
-    public TopMenu(JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
+    public TopMenu(AppFrame myAppFrame){
         // Create the file menu.
-        FileMenu fileMenu = new FileMenu("File", jlab, mainText, lineNumber);
+        FileMenu fileMenu = new FileMenu("File", myAppFrame);
 
         // Create Style menu
-        StyleMenu styleMenu = new StyleMenu("Style", jlab, mainText, lineNumber);
+        StyleMenu styleMenu = new StyleMenu("Style", myAppFrame);
 
         // Create Help Menu
-        HelpMenu helpMenu = new HelpMenu("Help", jlab, mainText, lineNumber);
+        HelpMenu helpMenu = new HelpMenu("Help",
+                                        myAppFrame);
 
         // Add menus to main menu
         super.add(fileMenu);

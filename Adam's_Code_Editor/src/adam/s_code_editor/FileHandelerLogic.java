@@ -10,32 +10,31 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 
 
-public class myFileChooser extends JFileChooser {
 
-    private final JEditorPane mainText;
-    private final JLabel jlab;
+public class FileHandelerLogic {
+
+    private final AppFrame myAppFrame;
+    private final FileMenu myFileMenu; 
     private File myFile;
     
-    public myFileChooser(JEditorPane mainText, JLabel jlab){
+    public FileHandelerLogic(FileMenu myFileMenu, AppFrame myAppFrame){
     
-        this.mainText = mainText;
-        this.jlab = jlab;
+        this.myAppFrame = myAppFrame;
+        this.myFileMenu = myFileMenu;
         
     }
     
     public void openFile(){
         
-        int returnVal = this.showOpenDialog(mainText);
+        int returnVal = myFileMenu.getFileChooser().showOpenDialog(myAppFrame.getMainText());
         
         // If user approves menu then open file
         // Else update jlab with user canceled message
         if (returnVal == JFileChooser.APPROVE_OPTION){
-            myFile = this.getSelectedFile();
+            myFile = myFileMenu.getFileChooser().getSelectedFile();
             // Open file.
             FileReader myReader;
         
@@ -45,27 +44,27 @@ public class myFileChooser extends JFileChooser {
             // Load the file
             try {
                 myReader = new FileReader(fname);
-                mainText.read(myReader, null);
+                myAppFrame.getMainText().read(myReader, null);
                 myReader.close();
             } 
             catch(IOException exc){
-                jlab.setText("Error reading the file");
+                myAppFrame.getJLab().setText("Error reading the file");
             }
             
         }
         else{
-            jlab.setText("User Canceled Open");
+            myAppFrame.getJLab().setText("User Canceled Open");
         }  
     }
     
     public void saveFile(){
         
-        int returnVal = this.showSaveDialog(mainText);
+        int returnVal = myFileMenu.getFileChooser().showSaveDialog(myAppFrame.getMainText());
         
         // If user approves menu then open file
         // Else update jlab with user canceled message
         if (returnVal == JFileChooser.APPROVE_OPTION){
-            myFile = this.getSelectedFile();
+            myFile = myFileMenu.getFileChooser().getSelectedFile();
             // Open file writer.
             FileWriter myWriter;
         
@@ -75,15 +74,15 @@ public class myFileChooser extends JFileChooser {
             // Save file
             try {
                 myWriter = new FileWriter(fname);
-                mainText.write(myWriter);
+                myAppFrame.getMainText().write(myWriter);
                 myWriter.close();
             } catch(IOException exc){
-                jlab.setText("Error opening or writing file");
+                myAppFrame.getJLab().setText("Error opening or writing file");
             }
             
         }
         else{
-            jlab.setText("User Canceled Save");
+            myAppFrame.getJLab().setText("User Canceled Save");
         }
         
     }

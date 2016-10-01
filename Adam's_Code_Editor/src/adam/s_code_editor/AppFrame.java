@@ -7,12 +7,11 @@
 package adam.s_code_editor;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import static javax.swing.SwingConstants.CENTER;
 
 
-public class AppFrame extends JFrame implements ActionListener {
+public class AppFrame extends JFrame{
     
     private static JLabel jlab;
     private static JEditorPane mainText;
@@ -43,7 +42,7 @@ public class AppFrame extends JFrame implements ActionListener {
         jlab.setHorizontalAlignment(CENTER);
         
         // Call TopMenu
-        TopMenu myMenu = new TopMenu(jlab, mainText, lineNumber);
+        TopMenu myMenu = new TopMenu(this);
         
         // Add to frame
         super.add(myMenu, BorderLayout.PAGE_START);
@@ -52,8 +51,16 @@ public class AppFrame extends JFrame implements ActionListener {
         super.setVisible(true);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent evt){
-        
+    public JLabel getJLab(){
+        return jlab;
     }
+    
+    public JEditorPane getMainText(){
+        return mainText;
+    }
+    
+    public TextLineNumber getLineNumber(){
+        return lineNumber;
+    }
+    
 }

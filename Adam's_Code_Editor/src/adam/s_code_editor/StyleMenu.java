@@ -6,8 +6,6 @@
 
 package adam.s_code_editor;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JEditorPane;
@@ -19,20 +17,16 @@ import javax.swing.JMenuItem;
 public class StyleMenu extends JMenu implements ActionListener{
     
     // private refs for passing need objects
-    private final JLabel jlab;
-    private final JEditorPane mainText;
-    private final TextLineNumber lineNumber;
+    private final AppFrame myAppFrame;
     
     // Constructor that will be used to create the instance of this menu
-    public StyleMenu(String name, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
+    public StyleMenu(String name, AppFrame myAppFrame){
     
         // Call super inorder to set text
         super(name);
         
         // Store ref of vars for updating
-        this.jlab = jlab;
-        this.mainText = mainText;
-        this.lineNumber = lineNumber;
+        this.myAppFrame = myAppFrame;
         
         // Create background color menu
         JMenu backgroundMenu = new JMenu("Background Color");
@@ -79,7 +73,7 @@ public class StyleMenu extends JMenu implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         
-        StyleMenuLogic myLogic = new StyleMenuLogic(ae, jlab, mainText, lineNumber);
+        StyleMenuLogic myLogic = new StyleMenuLogic(ae, myAppFrame);
         myLogic.runLogic();
         
     }

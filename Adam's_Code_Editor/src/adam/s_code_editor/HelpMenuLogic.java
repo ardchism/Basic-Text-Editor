@@ -15,17 +15,13 @@ public class HelpMenuLogic {
     private ActionEvent myEvent;
     
     // private refs for passing need objects
-    private final JLabel jlab;
-    private final JEditorPane mainText;
-    private final TextLineNumber lineNumber;
+    private final AppFrame myAppFrame;
     
-    public HelpMenuLogic(ActionEvent ae, JLabel jlab, JEditorPane mainText, TextLineNumber lineNumber){
+    public HelpMenuLogic(ActionEvent ae, AppFrame myAppFrame){
         myEvent = ae;
         
         // Store ref of vars for updating
-        this.jlab = jlab;
-        this.mainText = mainText;
-        this.lineNumber = lineNumber;
+        this.myAppFrame = myAppFrame;
     }
     
     public void runLogic(){
@@ -34,7 +30,7 @@ public class HelpMenuLogic {
         
         switch (comStr) {
             case "About":
-               jlab.setText(comStr);
+               myAppFrame.getJLab().setText(comStr);
                break;      
         }
     }
