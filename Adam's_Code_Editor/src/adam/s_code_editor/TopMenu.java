@@ -16,8 +16,9 @@ public class TopMenu extends JMenuBar {
         // Create the file menu.
         FileMenu fileMenu = new FileMenu("File", myAppFrame);
 
-        // Create Style menu
-        StyleMenu styleMenu = new StyleMenu("Style", myAppFrame);
+        // Create Style menu and controller
+        StyleMenuController myStyleController = new StyleMenuController(myAppFrame.getModel(), myAppFrame); 
+        StyleMenuView styleMenu = new StyleMenuView("Style", myStyleController);
 
         // Create Help Menu
         HelpMenu helpMenu = new HelpMenu("Help",

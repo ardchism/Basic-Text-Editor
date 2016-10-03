@@ -13,13 +13,17 @@ import static javax.swing.SwingConstants.CENTER;
 
 public class AppFrame extends JFrame{
     
-    private static JLabel jlab;
-    private static JEditorPane mainText;
-    private static TextLineNumber lineNumber;
+    private final JLabel jlab;
+    private final JEditorPane mainText;
+    private final TextLineNumber lineNumber; 
+    private final AppModel myModel;
     
     public AppFrame(String name){
         
         super(name);
+        
+        // Store inst of model
+        this.myModel = new AppModel();
 
         // Specify Layout
         super.setLayout(new BorderLayout());
@@ -49,6 +53,10 @@ public class AppFrame extends JFrame{
         super.add(mainPane, BorderLayout.CENTER);
         super.add(jlab, BorderLayout.PAGE_END);
         super.setVisible(true);
+    }
+    
+    public AppModel getModel(){
+        return myModel;
     }
     
     public JLabel getJLab(){

@@ -6,27 +6,18 @@
 
 package adam.s_code_editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JEditorPane;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 
-public class StyleMenu extends JMenu implements ActionListener{
+public class StyleMenuView extends JMenu{
     
-    // private refs for passing need objects
-    private final AppFrame myAppFrame;
     
     // Constructor that will be used to create the instance of this menu
-    public StyleMenu(String name, AppFrame myAppFrame){
+    public StyleMenuView(String name, StyleMenuController myController){
     
         // Call super inorder to set text
         super(name);
-        
-        // Store ref of vars for updating
-        this.myAppFrame = myAppFrame;
         
         // Create background color menu
         JMenu backgroundMenu = new JMenu("Background Color");
@@ -50,7 +41,7 @@ public class StyleMenu extends JMenu implements ActionListener{
         for(int count = 0, font = 2; count < 25; count++, font += 2){
             fontSizeList[count] = new JMenuItem( Integer.toString(font) );
             textSizeMenu.add(fontSizeList[count]);
-            fontSizeList[count].addActionListener(this);
+            fontSizeList[count].addActionListener(myController);
         }
         super.add(textSizeMenu);
         
@@ -62,20 +53,13 @@ public class StyleMenu extends JMenu implements ActionListener{
 
         
         // Add action Listeners
-        blackBack.addActionListener(this);
-        whiteBack.addActionListener(this);
-        greenFont.addActionListener(this);
-        blackFont.addActionListener(this);
-        themOne.addActionListener(this);
+        blackBack.addActionListener(myController);
+        whiteBack.addActionListener(myController);
+        greenFont.addActionListener(myController);
+        blackFont.addActionListener(myController);
+        themOne.addActionListener(myController);
         
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        
-        StyleMenuLogic myLogic = new StyleMenuLogic(ae, myAppFrame);
-        myLogic.runLogic();
-        
-    }
     
 }
