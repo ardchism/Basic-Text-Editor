@@ -1,0 +1,38 @@
+/**
+ *
+ * @author coldblooded
+ */
+package mvcexample;
+
+import javax.swing.*;
+import java.awt.BorderLayout;
+
+public class View {
+    
+    private JFrame frame;
+    private JLabel label;
+    private JButton button;
+    
+    public View(String text){
+        frame = new JFrame("View");
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200,200);
+        frame.setVisible(true);
+        
+        label = new JLabel(text);
+        frame.add(label, BorderLayout.CENTER);
+        
+        button = new JButton("Button");
+        frame.add(button, BorderLayout.SOUTH);
+    }
+    
+    public JButton getButton(){
+        return button;
+    }
+    
+    public void setText(String text){
+        label.setText(text);
+    }
+    
+}

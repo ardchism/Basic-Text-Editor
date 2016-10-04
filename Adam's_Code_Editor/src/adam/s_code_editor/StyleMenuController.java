@@ -62,7 +62,16 @@ public class StyleMenuController  implements ActionListener {
                     myModel.setForegroundColor(Color.BLACK);
                     myModel.setCaratColor(Color.BLACK);                    
                     break;
-
+                case "Green Screen":
+                    myModel.setForegroundColor(Color.GREEN);
+                    myModel.setCaratColor(Color.WHITE);
+                    myModel.setBackgroundColor(Color.BLACK);
+                    break;
+                case "Note Pad":
+                    myModel.setForegroundColor(Color.BLACK);
+                    myModel.setCaratColor(Color.BLACK);
+                    myModel.setBackgroundColor(Color.WHITE);
+                    break;
                 // Otherwise, display the selection.
                 default:
                     myAppFrame.getJLab().setText("COMING SOON");

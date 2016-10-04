@@ -47,8 +47,10 @@ public class StyleMenuView extends JMenu{
         
         // Create theme menu.
         JMenu themeMenu = new JMenu("Theme");
-        JMenuItem themOne = new JMenuItem("Theme One");
+        JMenuItem themOne = new JMenuItem("Green Screen");
+        JMenuItem themTwo = new JMenuItem("Note Pad");
         themeMenu.add(themOne);
+        themeMenu.add(themTwo);
         super.add(themeMenu);
 
         
@@ -58,6 +60,7 @@ public class StyleMenuView extends JMenu{
         greenFont.addActionListener(myController);
         blackFont.addActionListener(myController);
         themOne.addActionListener(myController);
+        themTwo.addActionListener(myController);
         
     }
 
